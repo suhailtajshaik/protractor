@@ -251,8 +251,8 @@ export class ElementArrayFinder extends WebdriverWebElement {
   }
 
   /**
-   * Get an element within the ElementArrayFinder by index. The index starts at
-   * 0\. Negative indices are wrapped (i.e. -i means ith element from last)
+   * Get an element within the ElementArrayFinder by index. The index starts at 0.
+   * Negative indices are wrapped (i.e. -i means ith element from last)
    * This does not actually retrieve the underlying element.
    *
    * @alias element.all(locator).get(index)
@@ -656,7 +656,7 @@ export class ElementArrayFinder extends WebdriverWebElement {
       let list = arr.map((elementFinder?: ElementFinder, index?: number) => {
         let mapResult = mapFn(elementFinder, index);
         // All nested arrays and objects will also be fully resolved.
-        return wdpromise.fullyResolved(mapResult);
+        return wdpromise.fullyResolved(mapResult) as wdpromise.Promise<T>;
       });
       return wdpromise.all(list);
     });
@@ -1100,7 +1100,7 @@ export class ElementFinder extends WebdriverWebElement {
   /**
    * Same as ElementFinder.isPresent(), except this checks whether the element
    * identified by the subLocator is present, rather than the current element
-   * finder. i.e. `element(by.css('#abc')).element(by.css('#def')).isPresent()`
+   * finder, i.e.: `element(by.css('#abc')).element(by.css('#def')).isPresent()`
    * is identical to `element(by.css('#abc')).isElementPresent(by.css('#def'))`.
    *
    * // Or using the shortcut $() notation instead of element(by.css()):
